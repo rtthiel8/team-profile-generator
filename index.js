@@ -6,6 +6,7 @@ const siteGen = require('./generate-site');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
+const { profile } = require('console');
 const positions = { Manager:[], Engineer:[], Intern:[] };
 
 const init = () => {
@@ -41,9 +42,12 @@ fillPosition = ()=> {
             role == 'Manager'   ? positions.Manager.push(new Manager(...employeeInfo))
             :role == 'Engineer' ? positions.Engineer.push(new Engineer(...employeeInfo))
             : positions.Intern.push(new Intern(...employeeInfo));
-            console.log(employeeInfo);
-        }).then(employeeInfo => writeToFile('./dist/index.html', siteGen(employeeInfo)));
-
+            return (employeeInfo);
+//            console.log(employeeInfo);
+        }).then(profile => {
+            console.log(positions);
+            writeToFile('./dist/index.html', siteGen(profile))
+        })
     })
 };
 

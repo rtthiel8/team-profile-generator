@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-function siteGen(ans) {
+function siteGen(profile) {
     return `
     <!DOCTYPE html>
 <html lang="en">
@@ -10,8 +10,8 @@ function siteGen(ans) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee</title>
 </head>
-<body>
-    ${ans}    
+<body>}
+    ${profile}    
 </body>
 </html>
     `
