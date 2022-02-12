@@ -6,10 +6,11 @@ const siteGen = require('./generate-site');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
-const { data } = require('console');
+const Employee = require('./lib/Employee');
+//const { data } = require('console');
 const positions = { Manager:[], Engineer:[], Intern:[] };
 
-const init = () => {
+function init() {
     return prompt([
         {
             type: 'confirm',
@@ -17,7 +18,7 @@ const init = () => {
             message: 'Would you like to add a team member?'
         }
     ]).then(({ addEmployee }) => {
-        addEmployee ? fillPosition() :  writeToFile('generate-site', siteGen(positions))
+        addEmployee ? fillPosition() :  writeToFile('./dist/index.html', siteGen(positions))
     })
 };
 
@@ -27,7 +28,7 @@ fillPosition = ()=> {
             type: 'list',
             name: 'role',
             message: 'What is the team members role?',
-            choices: ['Manager','Engineer','Intern']
+            choices: ['Manager','Engineer','Intern', 'No more team members']
         }
     ]).then(({ role })=> {
         const questions = [];
@@ -36,17 +37,19 @@ fillPosition = ()=> {
         items.forEach(item => {
             questions.push({type:'input',name:item,message:`What is your ${item}?`});
         });
-
+        items.push(role);
         prompt(questions).then(ans => {
-            let employeeInfo = Object.values(ans);
-            role == 'Manager'   ? positions.Manager.push(new Manager(...employeeInfo))
-            :role == 'Engineer' ? positions.Engineer.push(new Engineer(...employeeInfo))
-            : positions.Intern.push(new Intern(...employeeInfo));
-            return (employeeInfo);
-        }).then(data => {
-            console.log(data, positions);
-            writeToFile('./dist/index.html', siteGen(data));
-         (init);
+            let employeeInfo = ans;
+            role == 'Manager'   ? positions.Manager.push(new Manager(employeeInfo))
+            :role == 'Engineer' ? positions.Engineer.push(new Engineer(employeeInfo))
+            :role == 'Intern' ? positions.Intern.push(new Intern(employeeInfo))
+            :role == 'No more team members' 
+            //? writeToFile(employeeInfo)
+           console.log("employeeInfo", employeeInfo)
+            return employeeInfo;
+        }).then(positions => {
+            console.log("positions2", positions);
+            writeToFile('./dist/index.html', siteGen(positions));
         })
     })
 };
@@ -58,6 +61,7 @@ function writeToFile(filename, data) {
         if (err) {
             console.log(err);
         }
+        init();
     });
 };
 

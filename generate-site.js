@@ -1,6 +1,8 @@
 const fs = require('fs');
+//const Manager = require('./lib/Manager');
 
-function siteGen(data) {
+const siteGen = positions => {
+    console.log('positions', positions)
     return `
     <!DOCTYPE html>
 <html lang="en">
@@ -13,10 +15,10 @@ function siteGen(data) {
 <body>
     <div class="card">
         <div class="container">
-            <h4><b>${data[0]}</b></h4>
-            <p>ID: ${data[1]}</p>
-            <p>Email: ${data[2]}</p>
-            <p>Office number: ${data[3]}</p>
+            <h4><b></b></h4>
+            <p>ID:</p>
+            <p>Email:</p>
+            <p>Office number: ${positions.role}</p>
         </div>
     </div>
 </body>
