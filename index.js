@@ -45,10 +45,10 @@ fillPosition = ()=> {
             :role == 'Intern' ? positions.Intern.push(new Intern(employeeInfo))
             :role == 'No more team members' 
             //? writeToFile(employeeInfo)
-           console.log("employeeInfo", employeeInfo)
+           console.log(employeeInfo)
             return employeeInfo;
         }).then(positions => {
-            console.log("positions2", positions);
+            console.log(positions);
             writeToFile('./dist/index.html', siteGen(positions));
         })
     })
