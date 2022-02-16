@@ -9,7 +9,6 @@ const Engineer = require('./lib/Engineer');
 const Employee = require('./lib/Employee');
 //const { data } = require('console');
 const positions = { Manager:[], Engineer:[], Intern:[] };
-
 function init() {
     return prompt([
         {
@@ -21,7 +20,6 @@ function init() {
         addEmployee ? fillPosition() :  writeToFile('./dist/index.html', siteGen(positions))
     })
 };
-
 fillPosition = ()=> {
     return prompt([
         {
@@ -37,34 +35,19 @@ fillPosition = ()=> {
         items.forEach(item => {
             questions.push({type:'input',name:item,message:`What is your ${item}?`});
         });
-        items.push(role);
         prompt(questions).then(ans => {
-            let employeeInfo = ans;
-            role == 'Manager'   ? positions.Manager.push(new Manager(employeeInfo))
-            :role == 'Engineer' ? positions.Engineer.push(new Engineer(employeeInfo))
-            :role == 'Intern' ? positions.Intern.push(new Intern(employeeInfo))
-            :role == 'No more team members' 
-            //? writeToFile(employeeInfo)
-           console.log(employeeInfo)
-            return employeeInfo;
-        }).then(positions => {
-            console.log(positions);
-            writeToFile('./dist/index.html', siteGen(positions));
-        })
+            let employeeInfo = Object.values(ans);
+            role == 'Manager'   ? positions.Manager.push(new Manager(...employeeInfo))
+            :role == 'Engineer' ? positions.Engineer.push(new Engineer(...employeeInfo))
+            : positions.Intern.push(new Intern(...employeeInfo))
+        }).then(init);
     })
 };
-
-
-
 function writeToFile(filename, data) {
     fs.writeFile(path.join(__dirname, filename), data, err => {
         if (err) {
             console.log(err);
         }
-        init();
     });
 };
-
 init();
-
-

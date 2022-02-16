@@ -1,7 +1,7 @@
 const fs = require('fs');
 //const Manager = require('./lib/Manager');
 
-const siteGen = ({ Manager, Engineer, Inter }) => {
+const siteGen = ({ Manager, Engineer, Intern }) => {
 
         let output = ` <!DOCTYPE html>
         <html lang="en">
@@ -21,51 +21,55 @@ const siteGen = ({ Manager, Engineer, Inter }) => {
 
         if (Manager) {
             output += '<div class="Managers">'
-            console.log('Manager: ',Manager);
             Manager.forEach(mgr => {
                 output += `
                         <div class="card">
-                            <h4><b>${mgr.getName()}</b></h4>
+                            <h2><b>${mgr.getName()}</b></h2>
+                            <h3><b>Manager</b></h3>
                             <p>ID: ${mgr.getId()}</p>
                             <p>Email: ${mgr.getEmail()}</p>
                             <p>Office number: ${mgr.getOfficeNumber()}</p>
                         </div>
                     `
-            });
+                });
 
-            output += '<h1>Managers</h1><hr></div>'
+        if (Engineer) {
+            output += '<div class="Engineers">'
+            Engineer.forEach(engr => {
+                output += `
+                        <div class="card">
+                            <h2><b>${engr.getName()}</b></h2>
+                            <h3><b>Engineer</b></h3>
+                            <p>ID: ${engr.getId()}</b></h4>
+                            <p>Email: ${engr.getEmail()}</b></h4>
+                            <p>GitHub: ${engr.getGitHub()}</b></h4>
+                        </div>
+                    `
+                });
 
+                if (Intern) {
+                    output += '<div class="Interns">'
+                    Intern.forEach(int => {
+                        output += `
+                                <div class="card">
+                                    <h2><b>${int.getName()}</b></h2>
+                                    <h3><b>Intern</b></h3>
+                                    <p>ID: ${int.getId()}</b></h4>
+                                    <p>Email: ${int.getEmail()}</b></h4>
+                                    <p>School: ${int.getSchool()}</b></h4>
+                                </div>
+                        `
+                    });
+
+        }    
 
             output += `</div></body></html>`
         }
         
         return output
     }
+};
    
-
-        
-        // <div class="Engineers">
-        //     <div class="card">
-        //         <h4><b></b></h4>
-        //         <p>ID:</p>
-        //         <p>Email:</p>
-        //         <p>Office number: undefined</p>
-        //     </div>
-        //     <h1>Engineers</h1>
-        //     <hr>
-        // </div>
-        // <div class="Interns">
-        //     <div class="card">
-        //         <h4><b></b></h4>
-        //         <p>ID:</p>
-        //         <p>Email:</p>
-        //         <p>Office number: undefined</p>
-        //     </div>
-        //     <h1>Interns</h1>
-        //     <hr>
-        // </div>
-   
-    
 
 module.exports = siteGen;
 
