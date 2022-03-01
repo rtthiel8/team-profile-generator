@@ -15,55 +15,61 @@ const siteGen = ({ Manager, Engineer, Intern }) => {
         </head>
         
         <body>
-            <h1>Team Generator</h1>
+            <header>
+                <h1>My Team</h1>
+            </header>
             <hr>
-            <div class="container">`
+            <div class="flex-container">`
 
         if (Manager) {
-            output += '<div class="Managers">'
+            output += '<div>'
             Manager.forEach(mgr => {
                 output += `
                         <div class="card">
                             <h2><b>${mgr.getName()}</b></h2>
                             <h3><b>Manager</b></h3>
                             <p>ID: ${mgr.getId()}</p>
-                            <p>Email: ${mgr.getEmail()}</p>
+                            <a href = "mailto: ${mgr.getEmail()}">Send Email</a>
                             <p>Office number: ${mgr.getOfficeNumber()}</p>
                         </div>
+                    </div>
                     `
                 });
 
         if (Engineer) {
-            output += '<div class="Engineers">'
+            output += '<div>'
             Engineer.forEach(engr => {
                 output += `
                         <div class="card">
                             <h2><b>${engr.getName()}</b></h2>
                             <h3><b>Engineer</b></h3>
                             <p>ID: ${engr.getId()}</b></h4>
-                            <p>Email: ${engr.getEmail()}</b></h4>
-                            <p>GitHub: ${engr.getGitHub()}</b></h4>
+                            <a href = "mailto: ${engr.getEmail()}">Send Email</a><br>
+                            <a href= "https://github.com/${engr.getGitHub()}">GitHub</a>
                         </div>
+                    </div>
                     `
                 });
 
-                if (Intern) {
-                    output += '<div class="Interns">'
-                    Intern.forEach(int => {
-                        output += `
-                                <div class="card">
-                                    <h2><b>${int.getName()}</b></h2>
-                                    <h3><b>Intern</b></h3>
-                                    <p>ID: ${int.getId()}</b></h4>
-                                    <p>Email: ${int.getEmail()}</b></h4>
-                                    <p>School: ${int.getSchool()}</b></h4>
-                                </div>
-                        `
-                    });
+        if (Intern) {
+            output += '<div>'
+            Intern.forEach(int => {
+                output += `
+                        <div class="card">
+                            <h2><b>${int.getName()}</b></h2>
+                            <h3><b>Intern</b></h3>
+                            <p>ID: ${int.getId()}</b></h4>
+                            <a href = "mailto: ${int.getEmail()}">Send Email</a>
+                            <p>School: ${int.getSchool()}</b></h4>
+                        </div>
+                    </div>
+                    `
+                });
 
         }    
 
             output += `</div></body></html>`
+        
         }
         
         return output
