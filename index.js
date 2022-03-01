@@ -1,13 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 const { prompt } = require('inquirer');
-const Choices = require('inquirer/lib/objects/choices');
+//const Choices = require('inquirer/lib/objects/choices');
 const siteGen = require('./generate-site');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Employee = require('./lib/Employee');
-//const { data } = require('console');
 const positions = { Manager:[], Engineer:[], Intern:[] };
 function init() {
     return prompt([
@@ -26,7 +25,7 @@ fillPosition = ()=> {
             type: 'list',
             name: 'role',
             message: 'What is the team members role?',
-            choices: ['Manager','Engineer','Intern', 'No more team members']
+            choices: ['Manager','Engineer','Intern']
         }
     ]).then(({ role })=> {
         const questions = [];
